@@ -79,3 +79,50 @@ def rnn_step_forward(parameters, a_prev, x):
     p_t = softmax(np.dot(Wya, a_next) + by) # unnormalized log probabilities for next chars # probabilities for next chars 
     
     return a_next, p_t
+
+
+
+def rnn_step_backward(dy, gradients, parameters, x, a, a_prev):
+    
+    """
+        One iteration of backward pass on layer
+
+        Parameters
+        ----------
+        dy : Gradient of the output, numpy array of shape (ny, 1)
+
+        gradients : python dictionary containig:
+                        dWax -- Gradient of the Weight matrix multiplying the input, numpy array of shape (n_a, n_x)
+                        dWaa -- Gradient of the Weight matrix multiplying the hidden state, numpy array of shape (n_a, n_a)
+                        dWya -- Gradient of the Weight matrix relating the hidden-state to the output, numpy array of shape (n_y, n_a)
+                        db --  Gradient of the Bias, numpy array of shape (n_a, 1)
+                        dby -- Gradient of the bias relating the hidden-state to the output, numpy array of shape (n_y, 1)
+
+        parameters : python dictionary containing:
+                        Wax -- Weight matrix multiplying the input, numpy array of shape (n_a, n_x)
+                        Waa -- Weight matrix multiplying the hidden state, numpy array of shape (n_a, n_a)
+                        Wya -- Weight matrix relating the hidden-state to the output, numpy array of shape (n_y, n_a)
+                        b --  Bias, numpy array of shape (n_a, 1)
+                        by -- Bias relating the hidden-state to the output, numpy array of shape (n_y, 1)
+
+        x : ndarray of the inpute
+
+        a : ndarray of the activations from the current time step
+
+        a_prev : ndarray of the activations from the previous time step
+
+        Returns
+        ----------
+        Gradients
+    """
+
+    gradients['dWya'] += np.dot(dy, a.T)
+    gradients['dby'] += dy
+    da = np.dot(parameters['Wya'].T, dy) + gradients['da_next'] # backprop into h
+    daraw = (1 - a * a) * da # backprop through tanh nonlinearity
+    gradients['db'] += daraw
+    gradients['dWax'] += np.dot(daraw, x.T)
+    gradients['dWaa'] += np.dot(daraw, a_prev.T)
+    gradients['da_next'] = np.dot(parameters['Waa'].T, daraw)
+
+    return gradients
