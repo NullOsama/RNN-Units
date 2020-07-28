@@ -17,3 +17,11 @@ def softmax(x):
     """
     x_max = np.max(x)
     return np.exp(x - x_max) / np.sum(np.exp(x - x_max))
+
+
+
+def sigmoid(x):
+    """
+        Implementation of the softmax function.
+    """
+    return 1.0 / (1 + np.exp(-x))
