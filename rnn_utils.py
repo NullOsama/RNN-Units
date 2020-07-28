@@ -1,7 +1,5 @@
 import numpy as np
 
-
-
 def softmax(x):
     """
         Implementation of the softmax function.  used the max trick so the values stay small and the exp function don't explod.
@@ -12,7 +10,7 @@ def softmax(x):
 
         Returns
         ----------
-        numpy.ndarray
+        numpy array
                         Softmax of the input vector so all values are less than one and sum up to one.
     """
     x_max = np.max(x)
@@ -63,7 +61,7 @@ def initialize_adam(parameters):
 
 def update_parameters_adam(parameters, gradients, v, s, t, learning_rate=0.01, beta1=0.99, beta2=0.999, epsilon=1e-8):
     """
-        Update parameters using Adam
+        Update parameters using Adam.
         
         Arguments:
         parameters -- python dictionary containing your parameters:
