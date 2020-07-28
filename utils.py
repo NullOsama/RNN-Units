@@ -52,9 +52,30 @@ def initialize_parameters(n_a, n_x, n_y):
     return parameters
 
 def rnn_step_forward(parameters, a_prev, x):
-    
+    """
+        One iteration of forward pass on layer
+
+        Parameters
+        ----------
+        parameters : python dictionary containing:
+                        Wax -- Weight matrix multiplying the input, numpy array of shape (n_a, n_x)
+                        Waa -- Weight matrix multiplying the hidden state, numpy array of shape (n_a, n_a)
+                        Wya -- Weight matrix relating the hidden-state to the output, numpy array of shape (n_y, n_a)
+                        b --  Bias, numpy array of shape (n_a, 1)
+                        by -- Bias relating the hidden-state to the output, numpy array of shape (n_y, 1)
+        a_prev : ndarray of the activations from the previous time step
+
+        x : ndarray of the inpute
+
+        Returns
+        ----------
+        a_next : ndarray
+                        activation of the next time step
+        p_t : ndarray
+                    y hat of the current input
+    """
     Waa, Wax, Wya, by, b = parameters['Waa'], parameters['Wax'], parameters['Wya'], parameters['by'], parameters['b']
-    a_next = np.tanh(np.dot(Wax, x) + np.dot(Waa, a_prev) + b) # hidden state
+    a_next = np.tanh(np.dot(np.concatenate((Waa, Wax), axis=1), np.concatenate((a_prev, x), axis=0)) + b) # hidden state
     p_t = softmax(np.dot(Wya, a_next) + by) # unnormalized log probabilities for next chars # probabilities for next chars 
     
     return a_next, p_t
