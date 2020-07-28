@@ -1,10 +1,11 @@
 # RNN-Units
 Low level implementation of basic and LSTM Recurrent units
 
-
 Using numpy only, I have implemented the forward propagation of a standard RNN and an LSTM RNN.
 
-Working on deriving backpropagation...
+**Note:** Math explinations and discussions are inspired from [Deep Learning Specialization](https://www.coursera.org/specializations/deep-learning) (with Andrew ng) offered by Coursera.
+
+**Working on deriving backpropagation...**
 
 
 
@@ -13,5 +14,3 @@ Pull requests are welcomed. For major changes, please open an issue first to dis
 
 Please make sure to update tests as appropriate.
 
-
-**Note:** Math explinations and discussions are inspired from [Deep Learning Specialization](https://www.coursera.org/specializations/deep-learning) (with Andrew ng) offered by Coursera.
