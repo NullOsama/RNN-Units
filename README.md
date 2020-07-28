@@ -12,3 +12,6 @@ Working on deriving backpropagation...
 Pull requests are welcomed. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
+
+
+** Note: ** Math explinations and discussions are inspired from [Deep Learning Specialization](https://www.coursera.org/specializations/deep-learning) (with Andrew ng) offered by Coursera.
