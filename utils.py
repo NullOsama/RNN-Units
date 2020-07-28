@@ -126,3 +126,17 @@ def rnn_step_backward(dy, gradients, parameters, x, a, a_prev):
     gradients['da_next'] = np.dot(parameters['Waa'].T, daraw)
 
     return gradients
+
+
+
+def update_parameters(parameters, gradients, lr):
+    """
+        Update the parameters of the network with Gradient descent
+    """
+
+    parameters['Wax'] += -lr * gradients['dWax']
+    parameters['Waa'] += -lr * gradients['dWaa']
+    parameters['Wya'] += -lr * gradients['dWya']
+    parameters['b']  += -lr * gradients['db']
+    parameters['by']  += -lr * gradients['dby']
+    return parameters
